@@ -1,0 +1,170 @@
+﻿@model IEnumerable<UTCAPPCMS.DAL.Models.Parking>
+
+@{
+    ViewData["Title"] = "Parking";
+    ViewData["shortdesc"] = "manage parking information";
+
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    // on load...
+    $(document).ready(function () {
+        $('#demo-datatables-responsive-2').dataTable({
+            "scrollY": 200,
+            "scrollX": true
+        });
+    });
+
+</script>
+
+<style>
+    #outer {
+        float: left;
+        width: 1000px;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+    }
+
+    #left-button {
+        float: left;
+        width: 30px;
+        text-align: center;
+    }
+
+    #right-button {
+        float: left;
+        width: 30px;
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+        font-weight: bolder;
+        color: red;
+    }
+
+    #inner:first-child {
+        margin-left: 0;
+    }
+
+    label {
+        margin-left: 10px;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
+
+
+<div class="container">
+    <div class="">
+        <div class="col-xs-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-md-12 text-right">
+                        <a asp-area="" asp-controller="Parkings" asp-action="Create">
+                            <button class="btn btn-danger btn-sm btn-labeled" type="button">
+                                <span class="btn-label">
+                                    <span class="icon icon-plus icon-lg icon-fw"></span>
+                                </span>
+                                Add New
+                            </button>
+                        </a>
+                    </div>
+
+                    <a asp-area="" asp-controller="Parkings" asp-action="Excel">
+                        <button class="btn btn-danger btn-sm btn-labeled" type="button">
+                            <span class="btn-label">
+                                <span class="icon icon-download icon-lg icon-fw"></span>
+                            </span>
+                            Download Excel
+                        </button>
+                    </a>
+
+                </div>
+                <div class="card-body">
+                    <div id="elem">
+                        <table id="demo-datatables-buttons-1" class="table table-flip-scroll table-hover table-bordered table-striped table-nowrap dataTable display nowrap " cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> Referance Key</th>
+                                    <th>English Name </th>
+                                    <th> Contact Name </th>
+                                    <th> Contact Email </th>
+                                    <th> Contact Phone </th>
+                                    <th> Created Date </th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int x = 0;}
+                                @foreach (var item in Model)
+                                {
+                                    x++;
+                                    <tr>
+                                        <td>@x</td>
+                                        <td> @Html.DisplayFor(modelItem => item.ReferanceKey) </td>
+                                        <td> @Html.DisplayFor(modelItem => item.NameEn) </td>
+                                        <td> @Html.DisplayFor(modelItem => item.ContactName) </td>
+                                        <td> @Html.DisplayFor(modelItem => item.ContactEmail) </td>
+                                        <td> @Html.DisplayFor(modelItem => item.ContactPhone) </td>
+                                        <td> @Html.DisplayFor(modelItem => item.CreatedDate) </td>
+                                        <td>
+                                            <div class="btn-group dropdown">
+                                                <button class="btn btn-danger" type="button">Actions</button>
+                                                <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" type="button">
+                                                    <span class="caret"></span>
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a asp-action="Create" asp-route-id="@item.Id">Edit</a></li>
+                                                    <li> <a data-toggle="modal" data-target="#@("a"+item.Id)">Delete</a> </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+    @foreach (var item in Model)
+    {
+        <Text>
+
+        $("#@item.Id").click(function () {
+
+
+                    //console.log('Form is submitting');
+                    $.ajax({
+                        url: "/Parkings/DeleteConfirmed",
+                data: { id: @item.Id },
+                type: "post"
+                        ,
+                        success: window.location.replace("/Parkings/Index")
+            })
+
+
+
+            });
+
+    </Text>
+    }
+    })
+</script>
+
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script src="~/JS/DeleteScripts/ParkingLocationsDelete.js"></script>

@@ -1,0 +1,207 @@
+﻿@model UTCAPPCMS.MVC.Models.SubscriptionViewModel
+@{
+
+}
+
+    <div class="layout-main">
+        <form asp-action="Create" enctype="multipart/form-data" method="post" class="form ">
+
+
+
+                    <div class="row gutter-xs">
+                        <div class="col-lg-9"></div>
+
+                        <div class="col-lg-3 col-md-6" style="text-align:right">
+                            <button class="btn btn-danger btn-sm btn-labeled" type="submit" id="btn_Save">
+                                <span class="btn-label">
+                                    <span class="icon icon-save icon-lg icon-fw"></span>
+                                </span>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="panel m-b-lg">
+
+                        <ul class="nav nav-tabs nav-justified">
+
+                            <li class="active"><a href="#Subscription" data-toggle="tab">Subscription</a></li>
+
+                            <li><a href="#SubscriptionDuration" data-toggle="tab">Subscription Durations</a></li>
+
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <div class="tab-pane fade active in" id="Subscription">
+                                @*################################################ Subscription Form ################################################*@
+                                @*                    <form class="form form-horizontal " id="PopUpForm"> *@
+
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="row gutter-xs">
+                                    <div class="col-md-6">
+                                        <h4>Subscription  Info</h4>
+                                    </div>
+                                    @* Save button is here *@
+                                </div>
+
+                                <div class="row gutter-xs">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <input type="hidden" asp-for="Id" class="form-control" id="HiddenSubID"/>
+                                                @*@if (ViewBag.ParkingsList != null)
+                                                {
+                                                    <div class="form-group col-lg-6">
+                                                        <label class="control-label">Parking</label>
+                                                        @Html.DropDownListFor(m => m.ParkingId, ViewBag.ParkingsList as SelectList, "-- Select Parking", new { @class = "form-control", id = "Input_ParkingId" , required = "required" })
+                                                    </div>
+                                                }*@
+
+                                                <div class="form-group col-lg-6">
+                                                    <label class="control-label">English Name</label>
+                                                    <input asp-for="Name" class="form-control title" id="Input_Name" required />
+                                                    <span asp-validation-for="Name" class="text-danger output"></span>
+                                                </div>
+
+                                                <div class="form-group col-lg-6" id="divpad">
+                                                    <label asp-for="Image" class="control-label"></label>
+                                                    <input asp-for="Image" name="IMG" class="form-control" type="file" id="Input_Img" />
+                                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="form-group col-lg-6">
+                                                    <label class="control-label">IsEnable</label><br />
+                                                    <label class="switch switch-primary">
+                                                        <input asp-for="IsEnable" class="form-control switch-input" type="checkbox" style="width:auto;" id="Input_IsEnable" checked="checked" />
+                                                        <span class="switch-track"></span>
+                                                        <span class="switch-thumb"></span>
+                                                    </label>
+                                                </div>
+                                                @*<div class="form-group col-lg-6">
+                                                    <label class="control-label">IsEnable</label>
+                                                    <input asp-for="IsEnable" class="form-control switch-input" type="checkbox" style="width:auto;" id="Input_IsEnable" />
+                                                    <span asp-validation-for="IsEnable" class="text-danger"></span>
+                                                </div>*@
+
+                                                <div class="form-group col-lg-12" id="divpad">
+                                                    <label class="control-label">Description</label>
+                                                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id = "Input_Description" })
+                                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="SubscriptionDuration">
+                                @*################################################ Modal PopUp Button ################################################*@
+                                <div class="row gutter-xs">
+
+                                    <div class="col-lg-12">
+                                        <div class="panel panel-body text-center" data-toggle="match-height">
+                                            <h5>Subscription Duration</h5>
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#modalGridSystemLg" type="button">Add New</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                @*################################################ Subscription Duration Static DataTable ################################################*@
+                                <div class="container-fluid" id="SubDurationTable">
+                                    <div class="row gutter-xs">
+                                        <div class="col-lg-12" style="padding:10px 10px 10px 10px;">
+                                            <div class="col-md-10">
+                                                <hr />
+                                                <strong>Subscription Durations Table</strong><hr />
+                                            </div>
+                                            <table class="table table-striped" cellspacing="0" id="DurationStaticTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Duration In Days</th>
+                                                        <th>Days Count</th>
+                                                        <th>Hours Count</th>
+                                                        <th>Vechicle Count</th>
+                                                        <th>Price</th>
+                                                        <th>Price Multi</th>
+                                                        <th>All Days</th>
+                                                        <th>All Time</th>
+                                                        <th>IsMullti</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="SubDurationTableBody">
+                                                    @if (Model.Id != null)
+                                                    {
+                                                        foreach (var item in Model.Durationlist)
+                                                        {
+
+                                                            <input type="hidden" asp-for="@item.Id" class="form-control itemId"  />
+                                                            <tr>
+                                                                <td>
+                                                                    <input asp-for="@item.durationInDays" class="form-control txt_DurationDays" />
+                                                                </td>
+                                                                <td>
+                                                                    <input asp-for="@item.DaysCount" class="form-control txt_DayCount" />
+                                                                </td>
+                                                                <td>
+                                                                    <input asp-for="@item.HoursCount" class="form-control txt_HourseCount" />
+                                                                </td>
+                                                                <td>
+                                                                    <input asp-for="@item.VechicleCount" class="form-control txt_VechicleCount" />
+                                                                </td>
+                                                                <td>
+                                                                    <input asp-for="@item.Price" class="form-control txt_Price" />
+                                                                </td>
+                                                                <td>
+                                                                    <input asp-for="@item.PriceMulti" class="form-control txt_PriceMulti" />
+                                                                </td>
+                                                                <td>
+                                                                    <label class="switch switch-primary">
+                                                                        <input asp-for="@item.AllDays" class="form-control switch-input" id="chbx_AllDays" type="checkbox" style="width:auto;" />
+                                                                        <span class="switch-track"></span>
+                                                                        <span class="switch-thumb"></span>
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label class="switch switch-primary">
+                                                                        <input asp-for="@item.AllTime" class="form-control switch-input" id="chbx_AllTime" type="checkbox" style="width:auto;" />
+                                                                        <span class="switch-track"></span>
+                                                                        <span class="switch-thumb"></span>
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <label class="switch switch-primary">
+                                                                        <input asp-for="@item.IsMullti" class="form-control switch-input" id="chbx_IsMullti" type="checkbox" style="width:auto;" />
+                                                                        <span class="switch-track"></span>
+                                                                        <span class="switch-thumb"></span>
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>                                           
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-2">
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+
+            
+           
+        </form>
+    </div>
+
+<script src="~/Jquery/jquery-3.5.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/JS/SubscriptionScript.js"></script>

@@ -1,0 +1,70 @@
+﻿@model UTCAPPCMS.DAL.ViewModel.ParkingLocationViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iLead</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="~/QRCode/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/QRCode/assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="header-app">
+        <div class="">
+            <div class="header">
+                <div class="col-md-10 col-sm-10 col-xs-10 img-div" style=" text-align:center; padding-left:45%">
+                    <br>
+                    <img class="hdr-img" src="@Model.LogoUrl" style="width:100%;height:100%">
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 header-date-div">
+                    <a href='index?SiteId=@Model.SiteId'>
+                        <img src="~/QRCode/assets/imgs/close.png" class="close">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="plate-number-hdr">
+        <h4 class="parking">اسعار وقوف السيارات <br>التعليمات الخاصة بمواقف <br>سيارات مبنى سوق المناخ</h4>
+
+    </div>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <p class="money">(فلس250)</p>
+                </div>
+                <div class="col-6">
+                    <p class="clock">الساعة الاولى</p>
+                </div>
+                <div class="col-6">
+                    <p class="money">(فلس250)</p>
+                </div>
+                <div class="col-6">
+                    <p class="clock">كل ساعة اضافية او جزء من الساعة</p>
+                </div>
+                <hr class="line">
+            </div>
+            <ul>
+                <li>يتم احتساب قمة الموقف عن طريق قراءة لوحة السيارة فى الداخل والخارج</li>
+                <li>فى حالة تعطل نظام الكاميرا يرجى سحب التذكره من ماكينة التذاكر</li>
+                <li>ساعات العمل لمواقف السيارت من الساعه <span>6</span> صباحا وحتى الساعة <span>12</span> مساء ولن يسمح  لأى سيارة بالدخول او الخروج بعد هذا الوقت</li>
+                <li>فى حالة فقدان تذكرة الدخول يتم دفع مبلغ  <span>250</span> د.ك</li>
+                <li>الشركة غير مسئوله عن حالات التصادم او السرقه او اى اضرار اخرى تلحق بالمركبة</li>
+                <li>تكون السياره المتواجده داخل الموقف تحت مسئولية صاحبها</li>
+                <li>فى حالة وضع السيارة فى المكان الغير مخصص سوف يتم وضع ملصق على زجاج السيارة</li>
+            </ul>
+
+        </div>
+    </section>
+    <script src="~/QRCode/assets/js/jquery.js"></script>
+    <script src="~/QRCode/assets/js/bootstrap.min.js"></script>
+    <script src="~/QRCode/assets/js/script.js"></script>
+</body>
+</html>

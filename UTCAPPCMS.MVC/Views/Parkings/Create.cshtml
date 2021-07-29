@@ -1,0 +1,170 @@
+﻿@model UTCAPPCMS.MVC.Models.EditParkingViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+ 
+            <form asp-action="Create" enctype="multipart/form-data" class="form">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row gutter-xs">
+                    <div class="col-md-6">
+                        <h4>Parking Info</h4>
+                    </div>
+                    <div class="col-md-6" style="text-align:right">
+                        <button class="btn btn-danger btn-sm btn-labeled" type="submit">
+                            <span class="btn-label">
+                                <span class="icon icon-save icon-lg icon-fw"></span>
+                            </span>
+                            Save
+                        </button>
+
+                    </div>
+                </div>
+                <div class="row gutter-xs">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="form-group col-lg-6 ">
+                                    <label class="control-label">English Name</label>
+                                    <input asp-for="NameEn" class="form-control" name="NameEn" required />
+                                    <span asp-validation-for="NameEn" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6 ">
+                                    <label class="control-label">Arabic Name</label>
+                                    <input asp-for="NameAr" class="form-control" name="NameAr" required />
+                                    <span asp-validation-for="NameAr" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">Englsih Address</label>
+                                    <input asp-for="AddressEn" class="form-control" required />
+                                    <span asp-validation-for="AddressEn" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">Arabic Address</label>
+                                    <input asp-for="AddressAr" class="form-control" />
+                                    <span asp-validation-for="AddressAr" class="text-danger"></span>
+                                </div>
+
+
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">Contact Name</label>
+                                    <input asp-for="ContactName" class="form-control" required />
+                                    <span asp-validation-for="ContactName" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">Contact Email</label>
+                                    <input asp-for="ContactEmail" class="form-control" required />
+                                    <span asp-validation-for="ContactEmail" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">Contact Phone</label>
+                                    <input asp-for="ContactPhone" class="form-control" required />
+                                    <span asp-validation-for="ContactPhone" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label">Refrance Key</label>
+                                    <input asp-for="ReferanceKey" class="form-control" name="ReferanceKey" required />
+                                    <span asp-validation-for="ReferanceKey" class="text-danger output"></span>
+                                </div>
+                                @if (ViewBag.SessionParkingId == 0 || ViewBag.SessionParkingId == null && ViewBag.ID == null || ViewBag.ID == 0)
+                                {
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">Company Email</label>
+                                        <input asp-for="CompanyEmail" class="form-control" type="email" required />
+                                        <span asp-validation-for="CompanyEmail" class="text-danger output"></span>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">Company Password</label>
+                                        <input asp-for="CompanyPassword" class="form-control" type="text" required />
+                                        <span asp-validation-for="CompanyPassword" class="text-danger output"></span>
+                                    </div>
+                                }
+                                <div class="form-group col-lg-12" id="divpad">
+                                    <label class="control-label">Description</label>
+                                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">Logo</label>
+                                    @if (ViewBag.Edit == true)
+                                    {
+                                        <input asp-for="Logo" name="ifilelogo" class="form-control" />
+                                    }
+                                    @if (ViewBag.Edit == false)
+                                    {
+                                        <input asp-for="Logo" name="ifilelogo" class="form-control" required />
+                                    }
+                                    <span asp-validation-for="Logo" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">Invoice logo</label>
+                                    @if (ViewBag.Edit == true)
+                                    {
+                                        <input asp-for="Invoicelogo" name="ifileInvoice" class="form-control" />
+                                    }
+                                    @if (ViewBag.Edit == false)
+                                    {
+                                        <input asp-for="Invoicelogo" name="ifileInvoice" class="form-control" required />
+                                    }
+                                    <span asp-validation-for="Invoicelogo" class="text-danger"></span>
+                                </div>
+
+                                @if (ViewBag.logo != null)
+                                {
+                                    <div class="col-lg-6">
+                                        <img src="@ViewBag.logo" width="200" height="200" />
+                                    </div>
+                                }
+
+                                @if (ViewBag.inlogo != null)
+                                {
+                                    <div class="col-lg-6 ">
+                                        <img src="@ViewBag.inlogo" width="200" height="200" />
+                                    </div>
+                                }
+
+                                <div class="form-group col-lg-6">
+                                    <label class="control-label">IsEnable</label><br />
+                                    <label class="switch switch-primary">
+                                        <input asp-for="IsEnable" class="form-control switch-input" type="checkbox" checked="checked" style="width:auto;" />
+                                        <span asp-validation-for="IsEnable" class="text-danger"></span>
+                                        <span class="switch-track"></span>
+                                        <span class="switch-thumb"></span>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="col-lg-2">
+                <a asp-action="Index">Back to List</a>
+            </div>
+
+
+            <script>
+                $("[name='ReferanceKey']").prop("required", true);
+                $("[name='NameEn']").prop("required", true);
+                $("[name='NameAr']").prop("required", true);
+                var htmlString = $(form).html();
+                $('.output').text(htmlString);
+            </script>
+        
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

@@ -1,0 +1,108 @@
+﻿@model UTCAPPCMS.DAL.Models.Siteline
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <div class="col-xs-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+
+                <form asp-action="Create" class="form">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row gutter-xs">
+                        <div class="col-md-6">
+                            <h4>Siteline Info</h4>
+                        </div>
+                        <div class="col-md-6" style="text-align:right">
+                            <button class="btn btn-danger btn-sm btn-labeled" type="submit">
+                                <span class="btn-label">
+                                    <span class="icon icon-save icon-lg icon-fw"></span>
+                                </span>
+                                Save
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="row gutter-xs">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    <div class="form-group col-lg-6 ">
+                                        <label class="control-label">Line Id</label>
+                                        <input asp-for="LineId" class="form-control" />
+                                        <span asp-validation-for="LineId" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-lg-6" id="divpad">
+                                        <label class="control-label">Line Type</label>
+                                        <select asp-for="LineType" class="form-control">
+                                            <option value="">Select a number</option>
+                                            <option value="In">In</option>
+                                            <option value="Out">Out</option>
+                                        </select>
+                                        <span asp-validation-for="LineType" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">Line Name</label>
+                                        <input asp-for="LineName" class="form-control title" />
+                                        <span asp-validation-for="LineName" class="text-danger output"></span>
+                                    </div>
+
+                                    <div class="form-group col-lg-6" id="divpad">
+                                        <label class="control-label">Line Dpuid</label>
+                                        <input asp-for="LineDpuid" class="form-control" />
+                                        <span asp-validation-for="LineDpuid" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-lg-6 ">
+                                        <label class="control-label">Line Number</label>
+                                        <input asp-for="LineNumber" class="form-control" />
+                                        <span asp-validation-for="LineNumber" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-lg-6" id="divpad">
+                                        <label class="control-label">Line Dpu name</label>
+                                        <input asp-for="LineDpuname" class="form-control" />
+                                        <span asp-validation-for="LineDpuname" class="text-danger"></span>
+                                    </div>
+
+                                    @if (ViewBag.ParkingLocationsList != null)
+                                    {
+                                        <div class="form-group col-lg-6">
+                                            <label class="control-label">Parking Location</label>
+                                            @Html.DropDownListFor(m => m.ParkingLocationId, ViewBag.ParkingLocationsList as SelectList, "-- Select Location", new { @class = "form-control" })
+                                        </div>
+                                    }
+
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">IsEnable</label><br />
+                                        <label class="switch switch-primary">
+                                            <input asp-for="IsEnable" class="form-control switch-input" type="checkbox" checked="checked" style="width:auto;" />
+                                            <span asp-validation-for="IsEnable" class="text-danger"></span>
+                                            <span class="switch-track"></span>
+                                            <span class="switch-thumb"></span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-2">
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

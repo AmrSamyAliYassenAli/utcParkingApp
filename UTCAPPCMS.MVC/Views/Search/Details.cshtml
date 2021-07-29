@@ -1,0 +1,155 @@
+﻿@model UTCAPPCMS.MVC.Models.CustomerInfo
+
+@{
+    ViewBag.Title = "Customer info";
+}
+<div class="row gutter-xs">
+    
+    <div class="container">
+        <div class="col-xs-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Customer info</h4>
+                </div>
+                <div class="card-body" onload="setControllerName('SiteLine')" >
+                    <div class="container">
+                        <div style="height: 400px;">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td style="font-size: 18px"><strong>name :</strong></td>
+                                    <td style="font-size: 18px">@Model.customer.FullName</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 18px"><strong>create date :</strong></td>
+                                    <td style="font-size: 18px">@Model.customer.CreatedDate</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 18px"><strong>expire date :</strong></td>
+                                    <td style="font-size: 18px">@Model.customer.ExpireDate</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 18px"><strong>Phone :</strong></td>
+                                    <td style="font-size: 18px">@Model.customer.Mobile</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 18px"><strong>Email :</strong></td>
+                                    <td style="font-size: 18px">@Model.customer.Email</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 18px"><strong>Activation code :</strong></td>
+                                    <td style="font-size: 18px">@Model.customer.ActivationCode</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 18px"><strong>Subscription name :</strong></td>
+                                    <td style="font-size: 18px">
+
+                                        @if (Model.SubName != null)
+                                        {
+                                            @Model.SubName
+
+                                        }
+                                    </td>
+                                </tr>
+                                @*<dt style="font-size: 15px">Cars :</dt>
+            <dd style="font-size: 15px">
+
+            </dd>*@
+                            </table>
+                        </div>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Customer cars</h4>
+                </div>
+                <div class="card-body" onload="setControllerName('SiteLine')">
+                    <div style="height: 400px">
+                        <table class="table table-striped ">
+                            <tr>
+                                <th>Vechicle type</th>
+                                <th>Plate number</th>
+                            </tr>
+                            @foreach (var item in Model.VehiclesList)
+                            {
+
+                                <tr>
+                                    <td>@item.VechicleType</td>
+                                    <td>@item.PlateNumber</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+
+@*<div class="container">
+    <div class="col-xs-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+
+
+
+                <div class="col-md-12 text-right">
+                    <h3>Customer</h3>
+                </div>
+
+                <a asp-action="Excel">
+                    <button class="btn btn-danger btn-sm btn-labeled" type="button">
+                        <span class="btn-label">
+                            <span class="icon icon-download icon-lg icon-fw"></span>
+                        </span>
+                        Download Excel
+                    </button>
+                </a>
+
+            </div>
+
+            <div class="card-body" onload="setControllerName('SiteLine')">
+                <table class="table table-flip-scroll table-bordered table-striped table-nowrap dataTable display nowrap" cellspacing="0" width="100%" id="demo-datatables-buttons-1">
+                    <thead>
+                        <tr>
+                            <th>Line Name</th>
+                            <th>Line Number</th>
+                            <th>Line Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.LineName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.LineNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.LineType)</td>
+                                <td>
+                                    <div class="btn-group dropdown">
+                                        <button class="btn btn-danger" type="button">Actions</button>
+                                        <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" type="button">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li> <a asp-action="Create" asp-route-id="@item.Id">Edit</a> </li>
+
+                                            <li> <a data-toggle="modal" data-target="#dangerModalAlert" onclick="setID(@item.Id)">Delete</a> </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>*@

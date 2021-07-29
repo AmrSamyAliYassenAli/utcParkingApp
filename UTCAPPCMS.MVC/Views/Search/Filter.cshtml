@@ -1,0 +1,308 @@
+﻿@model UTCAPPCMS.MVC.Models.FilterModel
+
+
+@{
+    ViewData["Title"] = "Search";
+    ViewData["shortdesc"] = "Manage Filtering Process";
+}
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        // on load...
+        $(document).ready(function () {
+            $('#demo-datatables-responsive-2').dataTable({
+
+                "scrollX": true
+            });
+        });
+
+    </script>*@
+
+
+
+@*<div class="layout-content-body">*@
+
+<div class="bs-container">
+    <div class="form-vertical">
+
+
+        <div class="row gutter-xs">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Filter</h4>
+                </div>
+                <div class="card-body">
+
+                    <form asp-action="FilterDone" class="form">
+
+                        <div class="form-group">
+
+                            <table class="table table-borderless">
+
+                                <tr>
+                                    <td>
+                                        <label class="control-label">Subscription Type</label>
+                                    </td>
+                                    <td>
+                                        <select id="SubscriptionType" asp-for="SubscriptionType" class="form-control" asp-items="ViewBag.SubscriptionType">
+                                            <option value=-1 selected>-- Select</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label class="control-label">Search by phone</label>
+                                    </td>
+                                    <td>
+                                        <input type="tel" asp-for="Phone" class="form-control" placeholder="Enter your phone" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="control-label">Subscription Duration</label>
+                                    </td>
+                                    <td>
+                                        <select id="SubscriptionDurationID" asp-for="SubscriptionDurationID" class="form-control" asp-items="@(new SelectList( string.Empty,"Id", "DaysCount"))">
+                                            <option value=-1>-- Select</option>
+                                        </select>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label">From Expire Date</label>
+                                    </td>
+                                    <td>
+                                        <input type="date" asp-for="FromExpireDate" class="form-control" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="control-label">From Create Date</label>
+                                    </td>
+                                    <td>
+                                        <input type="date" asp-for="FromCreateDate" class="form-control" />
+                                    </td>
+                                    <td>
+                                        <label class="control-label">To Expire Date</label>
+                                    </td>
+                                    <td>
+                                        <input type="date" asp-for="ToExpireDate" class="form-control" />
+                                    </td>
+
+                                </tr>
+                                <tr style="border-bottom: 1px solid #ddd">
+                                    <td>
+                                        <label class="control-label">To Create Date</label>
+                                    </td>
+                                    <td>
+                                        <input type="date" asp-for="ToCreateDate" class="form-control" />
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                    </td>
+
+                                    <td style="text-align: right"><input type="submit" value="Search" class="btn btn-primary" /></td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+
+
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card-body" onload="setControllerName('SiteLine')">
+            @if (Model.Customers != null)
+            {
+
+
+                <div class="row gutter-xs">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-actions">
+                                <button type="button" class="card-action card-toggler" title="Collapse"></button>
+                                <button type="button" class="card-action card-reload" title="Reload"></button>
+                                <button type="button" class="card-action card-remove" title="Remove"></button>
+                            </div>
+                            <strong>Customers</strong>
+                        </div>
+
+
+                        <div class="card-body">
+                            <div id="elem">
+                                <table id="demo-datatables-responsive-2" class="table table-flip-scroll table-bordered table-striped table-nowrap dataTable display nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Full Name</th>
+
+                                            <th>Mobile</th>
+
+                                            <th>Email</th>
+
+                                            <th>Company</th>
+
+                                            <th>Supscripion Name</th>
+                                            <th>Is enabled</th>
+                                            <th></th>
+                                            <th hidden></th>
+                                            <th hidden></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Customers)
+                                        {
+                                            <tr>
+                                                <td>@item.FullName</td>
+                                                <td>@item.Mobile</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.CompanyName</td>
+                                                <td>
+                                                    @if (item.SubscriptionDuration != null)
+                                                    {
+                                                        @item.SubscriptionDuration.Subscription.Name
+
+                                                    }
+                                                </td>
+
+                                                <td>
+                                                    <label class="control-label">IsEnable</label><br />
+                                                    <label class="switch switch-primary">
+                                                        <input class="form-control switch-input" type="checkbox" id="@item.Id" @{ if (item.IsEnable) { @: checked
+                                                               }} value="@item.Id">
+
+                                                        <span class="switch-track"></span>
+                                                        <span class="switch-thumb"></span>
+                                                    </label>
+                                                    @*asp-for=""*@
+                                                </td>
+
+                                                <td>
+                                                    <div class="btn-group dropdown">
+                                                        <button class="btn btn-danger" type="button">Actions</button>
+                                                        <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" type="button">
+                                                            <span class="caret"></span>
+                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a asp-action="Details" asp-route-id="@item.Id" target="_blank">Details</a></li>
+
+                                                        </ul>
+                                                    </div>
+                                                </td>
+
+
+                                                <td hidden></td>
+                                                <td hidden></td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+
+
+</div>
+
+@*</div>*@
+
+
+
+
+
+
+
+<script src="~/Jquery/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#SubscriptionType").change(function () {
+            $.getJSON("/Search/GetDurationList", { SubscriptionType: $("#SubscriptionType").val() }, function (data) {
+                var items = "<option value='" + -1 + "'>" + "select" + "</option>";
+                $("#SubscriptionDurationID").empty();
+                $.each(data, function (i, row) {
+
+                    items += ("<option value='" + row.Value + "'>" + row.Text + "</option>")
+                });
+
+                $("#SubscriptionDurationID").html(items);
+            })
+        });
+        @if (Model.Customers!=null)
+        {
+             foreach (var item in Model.Customers)
+        {
+            <text>
+        $("#@item.Id").change(function () {
+            $.ajax({
+                url: "/Search/Enable",
+                data: { cust: $("#@item.Id").val() },
+                type: "post"
+
+            });
+        });
+
+    </text>
+        }
+
+
+        }
+
+
+
+    });
+</script>
+@*<script type="text/javascript">
+        $(document).ready(function () {
+
+            ////if ($("#Input_IsEnable").prop(
+            ////    ":checked")) {
+            ////    var x = true;
+            //}
+            $("#Input_IsEnable").change(function () {
+                alert("Handler for .change() called.");
+
+            });
+    </script>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

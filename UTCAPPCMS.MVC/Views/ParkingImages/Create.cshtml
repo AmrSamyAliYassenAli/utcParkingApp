@@ -1,0 +1,128 @@
+﻿@model UTCAPPCMS.MVC.Models.ParkingImageModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <div class="col-xs-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <form asp-action="Create" enctype="multipart/form-data" class="form">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row gutter-xs">
+                        <div class="col-md-6">
+                            <div class="container">
+                                <h4>Promotions info</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align:right">
+                            <button class="btn btn-danger btn-sm btn-labeled" type="submit">
+                                <span class="btn-label">
+                                    <span class="icon icon-save icon-lg icon-fw"></span>
+                                </span>
+                                Save
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="row gutter-xs">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <table class="table table-borderless">
+
+                        <tr>
+                            
+                            <td>
+                                <label asp-for="Parking_Images.TitleEn" class="control-label">Title english</label>
+                                <input asp-for="Parking_Images.TitleEn" class="form-control" placeholder="Entre title english" required />
+                                <span asp-validation-for="Parking_Images.TitleEn" class="text-danger"></span>
+                            </td>
+                            <td hidden>
+                                @{
+                                    if (Model == null)
+                                    {
+                                        <input asp-for="Parking_Images.Id" type="number" class="form-control" value="0" />
+                                    }
+                                    else
+                                    { <input asp-for="Parking_Images.Id" type="number" class="form-control" value="@Model.Parking_Images.Id" />}}
+
+
+                                <input asp-for="Parking_Images.Path" class="form-control" />
+                            </td>
+                        
+                           
+                            <td>
+                                <label asp-for="Parking_Images.TitleAr" class="control-label">Title arabic</label>
+                                <input asp-for="Parking_Images.TitleAr" class="form-control" placeholder="Entre title arabic" required />
+                                <span asp-validation-for="Parking_Images.TitleAr" class="text-danger"></span>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <td>
+                                <label asp-for="Parking_Images.FromDate" class="control-label">From date</label>
+                                <input asp-for="Parking_Images.FromDate" class="form-control" />
+                                <span asp-validation-for="Parking_Images.FromDate" class="text-danger"></span>
+                            </td>
+                          
+                            
+                            <td>
+                                <label asp-for="Parking_Images.ToDate" class="control-label">To date</label>
+                                <input asp-for="Parking_Images.ToDate" class="form-control" />
+                                <span asp-validation-for="Parking_Images.ToDate" class="text-danger"></span>
+                            </td>
+                           
+                        </tr>
+                        <tr>
+
+                            
+                            <td>
+                                <label asp-for="File" class="control-label">Choose image</label>
+                                <input type="file" name="File" asp-for="File" class="form-control" />
+                                <span asp-validation-for="File" class="text-danger"></span>
+                                @if (Model != null)
+                                {
+                                    <img src="@Model.Parking_Images.Path" style="width:64px" class="img-thumbnail" />
+                                }
+
+                            </td>
+                           
+                            
+                            <td>
+                                <label class="control-label">Is enable</label><br />
+                                <label class="switch switch-primary">
+                                    <input class="switch-input" asp-for="Parking_Images.IsEnable" type="checkbox" checked="checked">
+                                    <span class="switch-track"></span>
+                                    <span class="switch-thumb"></span>
+                                </label>
+
+
+
+                            </td>
+
+
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+                <div>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+
+                @section Scripts {
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                }

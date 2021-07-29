@@ -1,0 +1,127 @@
+﻿@model UTCAPPCMS.MVC.Models.UpdateUserInfoModel
+@{
+        ViewData["Title"] = "Update User Info";
+    }
+
+
+
+@*<h4>AdminUsers</h4>
+    <hr />*@
+
+
+
+@*<div class="container">
+    <div class="col-xs-12 col-lg-12">*@
+<div class="card">
+    <div class="card-header">
+
+
+        <form asp-action="Create" enctype="multipart/form-data" class="form">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @*<div class="row gutter-xs">
+                    <div class="col-md-6">
+                        <h4>Update User Info</h4>
+                    </div>
+
+                </div>*@
+
+            <div class="row gutter-xs">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="media">
+                            <div class="media-middle media-left">
+                                @*<img src="@Model.Admin.Image" style="width:64px" class="img-thumbnail" />*@
+                                <img class="media-object img-circle" width="32" height="32" src="@Model.Admin.Image" alt="Jessica Brown">
+                            </div>
+                            <div class="media-middle media-body">
+                                <strong>@Model.Admin.Fullname</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+
+
+
+                        <div class="form-group col-lg-6">
+                            <div hidden><input asp-for="Admin.Id" type="number" class="form-control" /></div>
+
+                            <label asp-for="Admin.Fullname" class="control-label"></label>
+                            <input asp-for="Admin.Fullname" class="form-control" />
+                            <span asp-validation-for="Admin.Fullname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label asp-for="Admin.Email" class="control-label"></label>
+                            <input asp-for="Admin.Email" class="form-control" />
+                            <span asp-validation-for="Admin.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-lg-6">
+                            <label asp-for="Admin.Mobile" class="control-label"></label>
+                            <input asp-for="Admin.Mobile" class="form-control" />
+                            <span asp-validation-for="Admin.Mobile" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label asp-for="Admin.Password" class="control-label"></label>
+                            <input asp-for="Admin.Password" class="form-control" />
+                            <span asp-validation-for="Admin.Password" class="text-danger"></span>
+                        </div>
+
+                        @*<div class="form-group col-lg-6">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input type="password"  name="confirm_password" id="confirm_password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>*@
+
+                    <div class="form-group col-lg-6">
+                        @*<label class="control-label">Image</label>*@
+                        @*<input asp-for="File" type="file" class="form-control" />*@
+                        <label class="btn btn-primary file-upload-btn">
+                            Update img
+                            <input asp-for="File" class="file-upload-input" type="file" >
+                        </label>
+                        <div hidden>
+                            <input asp-for="Admin.Image" class="form-control" />
+                        </div>
+
+
+
+
+                    </div>
+
+                        @*<div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>*@
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-md-6" style="text-align:right">
+                            <button class="btn btn-danger btn-sm btn-labeled" type="submit">
+                                <span class="btn-label">
+                                    <span class="icon icon-save icon-lg icon-fw"></span>
+                                </span>
+                                Update
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@*    </div>
+    </div>*@
+
+@*<div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

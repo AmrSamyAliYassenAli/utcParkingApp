@@ -1,0 +1,231 @@
+﻿@model UTCAPPCMS.MVC.Models.UserManagmentViewModa
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<form class="form" method="post" enctype="multipart/form-data" id="UserManagmentform" name="UserManagmentform">
+
+    <div class="row gutter-xs">
+        <div class="col-lg-9"></div>
+
+        <div class="col-lg-3 col-md-6" style="text-align:right">
+            <button  class="btn btn-danger btn-sm btn-labeled" id="btn_Save">
+                <span class="btn-label">
+                    <span class="icon icon-save icon-lg icon-fw"></span>
+                </span>
+                Save
+            </button>
+        </div>
+    </div>
+   
+
+    <div class="panel m-b-lg">
+
+        <ul class="nav nav-tabs nav-justified">
+
+            <li class="active"><a href="#User" data-toggle="tab">User</a></li>
+
+            <li><a href="#Privilage" data-toggle="tab">Privilage</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane fade active in" id="User">
+                @*################################################ User Form [Admin User Table] ################################################*@
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row gutter-xs">
+                    <div class="col-md-6">
+                        <h4>User  Info</h4>
+                    </div>
+                </div>
+
+                <div class="row gutter-xs">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="_AdminUsers.Id" id="Edit_Hidden_Id" />
+                                <input type="hidden" asp-for="_AdminUsers.Image" id="imgPath"/>
+                                <div class="form-group col-lg-6">
+                                    <label> Name</label>
+                                    <input asp-for="_AdminUsers.Fullname" type="text" class="form-control" id="txt2_Fullname" placeholder="Enter Name" />
+                                    <span asp-validation-for="_AdminUsers.Fullname" class="text-danger output"></span>
+                                </div>
+
+
+                                <div class="form-group col-lg-6">
+                                    <label> Username</label>
+                                    <input asp-for="_AdminUsers.Username" type="text" class="form-control" id="txt2_Username" placeholder="Username" />
+                                    <span asp-validation-for="_AdminUsers.Username" class="text-danger output"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label> Mobile</label>
+                                    <input asp-for="_AdminUsers.Mobile" type="text" class="form-control" id="txt2_Mobile" placeholder="Mobile" />
+                                    <span asp-validation-for="_AdminUsers.Mobile" class="text-danger output"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label> Email</label>
+                                    <input asp-for="_AdminUsers.Email" type="email" class="form-control" id="txt2_Email" placeholder="Email" />
+                                    <span asp-validation-for="_AdminUsers.Email" class="text-danger output"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label> Password</label>
+                                    <input asp-for="_AdminUsers.Password" type="password" class="form-control" id="password" name="password" />
+                                    <span asp-validation-for="_AdminUsers.Password" class="text-danger output" placeholder="Password"></span>
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label> Password Confirm</label>
+                                    <input class="form-control" type="password" id="confirmpassword" name="confirmpassword" placeholder="Password Confirm" />
+                                    <span id='message'></span>
+                                </div>
+
+                                @if (ViewBag.UserType != null)
+                                {
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">User Type</label>
+                                        @Html.DropDownListFor(m => m._AdminUsers.UserTypeId, ViewBag.UserType as SelectList, "-- Select UserType", new { @class = "form-control", id = "txt2_UserTypeId" })
+                                    </div>
+                                }
+
+                                @if (ViewBag.Privileges != null)
+                                {
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">Privilage</label>
+                                        @Html.DropDownListFor(m => m._AdminUsers.PrivilageGroupId, ViewBag.Privileges as SelectList, "-- Select Privilege", new { @class = "form-control", id = "txt2_PrivilageGroupId" })
+                                    </div>
+                                }
+
+                            <div class="form-group col-lg-6" id="divpad">
+                                <label class="control-label">Image</label>
+                                <input type="file" id="txt2_Image" name="Input_IMG" class="form-control" />         @*asp-for="_AdminUsers.Image"*@
+                            <img src="@Model._AdminUsers.Image" style="width:64px" class="img-thumbnail" />
+                                <span asp-validation-for="_AdminUsers.Image" class="text-danger"></span>
+                            </div>
+
+                                <div class="form-group col-lg-6" id="divpad">
+                                    <label class="control-label">IsEnable</label><br />
+                                    <label class="switch switch-primary">
+                                        <input asp-for="_AdminUsers.IsEnable" class="form-control switch-input" id="txt2_IsEnable" type="checkbox" checked />
+                                        <span class="switch-track"></span>
+                                        <span class="switch-thumb"></span>
+                                    </label>@*
+                                        <label class="control-label">IsEnable</label>
+                                        <input asp-for="_AdminUsers.IsEnable" type="checkbox" class="form-control" style="width:auto;" />
+                                        <span asp-validation-for="_AdminUsers.IsEnable" class="text-danger"></span>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Privilage" class="tab-pane fade">
+                @*################################################ Privilage  Form [ Privilage ] ################################################*@
+                @*User -> AdminUsers
+                    Pages->FormPages*@
+                @* FormPage Table -> FormKey *@
+                @* UserPrivilage Table  View Add Edit Delete Search Print*@
+                <div class="row gutter-xs">
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-body text-center" data-toggle="match-height">
+                            <table class="table table-borderless table-hover" id="UserPrivList">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Pages</th>
+                                        <th>View</th>
+                                        <th>Add</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                        <th>Search</th>
+                                        <th>Print</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableBody">
+                                    @{int i = 0;}
+                                    @foreach (var item in Model._FormPagePrivilagesList)
+                                    {
+                                        <input class="form-control itemId" type="hidden" asp-for="@item.Id" id="HiddenItemId" />
+                                        i++;
+                                        <tr>
+                                            <td align="left">@i</td>
+                                            <td align="left"> @item.FormKey </td>
+
+                                            <td align="left">
+                                                <label class="switch switch-primary">
+                                                    <input asp-for="@item.View" class="form-control switch-input" id="chbx2_View" type="checkbox">
+                                                    <span class="switch-track"></span>
+                                                    <span class="switch-thumb"></span>
+                                                </label>
+                                            </td>
+
+                                            <td align="left">
+                                                <label class="switch switch-primary">
+                                                    <input asp-for="@item.Add" class="form-control switch-input" id="chbx2_Add" type="checkbox">
+                                                    <span class="switch-track"></span>
+                                                    <span class="switch-thumb"></span>
+                                                </label>
+                                            </td>
+                                            <td align="left">
+                                                <label class="switch switch-primary">
+                                                    <input asp-for="@item.Edit" class="form-control switch-input" id="chbx2_Edit" type="checkbox">
+                                                    <span class="switch-track"></span>
+                                                    <span class="switch-thumb"></span>
+                                                </label>
+                                            </td>
+                                            <td align="left">
+                                                <label class="switch switch-primary">
+                                                    <input asp-for="@item.Delete" class="form-control switch-input" id="chbx2_Delete" type="checkbox">
+                                                    <span class="switch-track"></span>
+                                                    <span class="switch-thumb"></span>
+                                                </label>
+                                            </td>
+                                            <td align="left">
+                                                <label class="switch switch-primary">
+                                                    <input asp-for="@item.Search" class="form-control switch-input" id="chbx2_Search" type="checkbox">
+                                                    <span class="switch-track"></span>
+                                                    <span class="switch-thumb"></span>
+                                                </label>
+                                            </td>
+                                            <td align="left">
+                                                <label class="switch switch-primary">
+                                                    <input asp-for="@item.Print" class="form-control switch-input" id="chbx2_Print" type="checkbox">
+                                                    <span class="switch-track"></span>
+                                                    <span class="switch-thumb"></span>
+                                                </label>
+                                            </td>
+
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-lg-2">
+        <a asp-action="Index">Back to List</a>
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="~/Jquery/jquery-3.5.1.js"></script>
+<script src="~/JS/CreateAjaxScripts/UserManagmentScript.js"></script>

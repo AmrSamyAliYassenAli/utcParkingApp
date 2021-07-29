@@ -1,0 +1,81 @@
+﻿@model UTCAPPCMS.DAL.Models.TableTariff
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <div class="col-xs-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+
+                <form asp-action="Create" class="form">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row gutter-xs">
+                        <div class="col-md-6">
+                            <h4>Tariff Info</h4>
+                        </div>
+                        <div class="col-md-6" style="text-align:right">
+                            <button class="btn btn-danger btn-sm btn-labeled" type="submit">
+                                <span class="btn-label">
+                                    <span class="icon icon-save icon-lg icon-fw"></span>
+                                </span>
+                                Save
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="row gutter-xs">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+
+                                    @if (ViewBag.ParkingLocationsList != null)
+                                    {
+                                        <div class="form-group col-lg-6">
+                                            <label class="control-label">Parking Location</label>
+                                            @Html.DropDownListFor(m => m.ParkingLocationId, ViewBag.ParkingLocationsList as SelectList, "-- Select Location", new { @class = "form-control", required = "required" })
+                                        </div>
+                                    }
+
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">English Name</label>
+                                        <input asp-for="NameEn" class="form-control title" required />
+                                        <span asp-validation-for="NameEn" class="text-danger output"></span>
+                                    </div>
+
+                                    <div class="form-group col-lg-6 ">
+                                        <label class="control-label">Hour Price</label>
+                                        <input asp-for="HourPrice" class="form-control" required />
+                                        <span asp-validation-for="HourPrice" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group col-lg-6">
+                                        <label class="control-label">IsEnable</label><br />
+                                        <label class="switch switch-primary">
+                                            <input asp-for="IsEnable" class="form-control switch-input" type="checkbox" checked="checked" style="width:auto;" />
+                                            <span asp-validation-for="IsEnable" class="text-danger"></span>
+                                            <span class="switch-track"></span>
+                                            <span class="switch-thumb"></span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-2">
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

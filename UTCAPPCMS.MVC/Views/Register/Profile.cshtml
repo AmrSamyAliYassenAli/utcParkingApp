@@ -1,0 +1,79 @@
+﻿@model UTCAPPCMS.DAL.Models.AdminUsers
+
+<div class="profile">
+    <div class="profile-header">
+        <div class="profile-cover">
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-avetar">
+                        <img class="profile-avetar-img" width="128" height="128" src="@Model.Image" alt="@Model.Username">
+                    </div>
+                    <div class="profile-overview">
+                        <h1 class="profile-name">@Model.Username</h1>
+                        
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam quae, quam reprehenderit blanditiis. Necessitatibus et vitae, eligendi explicabo sit voluptatibus dolores dolorem quas, sunt numquam rem, harum accusamus eaque debitis! <a class="link-inverted" href="#">elephant.theme/teddywilson</a></p>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="profile-info">
+    <div class="card">
+        <div class="card-header">
+            Setting
+        </div>
+        <div class="row gutter-xs">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" id="Edit_Hidden_Id" />
+                        <div class="form-group col-lg-6">
+                            <label> Name</label>
+                            <input asp-for="Fullname" type="text" class="form-control" id="txt2_Fullname" placeholder="Enter Name" />
+                            <span asp-validation-for="Fullname" class="text-danger output"></span>
+                        </div>
+
+
+                        <div class="form-group col-lg-6">
+                            <label> Username</label>
+                            <input asp-for="Username" type="text" class="form-control" id="txt2_Username" placeholder="Username" />
+                            <span asp-validation-for="Username" class="text-danger output"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label> Mobile</label>
+                            <input asp-for="Mobile" type="text" class="form-control" id="txt2_Mobile" placeholder="Mobile" />
+                            <span asp-validation-for="Mobile" class="text-danger output"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label> Email</label>
+                            <input asp-for="Email" type="email" class="form-control" id="txt2_Email" placeholder="Email" />
+                            <span asp-validation-for="Email" class="text-danger output"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label> Password</label>
+                            <input asp-for="Password" type="password" class="form-control" id="password" name="password" />
+                            <span asp-validation-for="Password" class="text-danger output" placeholder="Password"></span>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label> Password Confirm</label>
+                            <input class="form-control" type="password" id="confirmpassword" name="confirmpassword" placeholder="Password Confirm" />
+                            <span id='message'></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

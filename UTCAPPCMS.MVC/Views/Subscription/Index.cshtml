@@ -1,0 +1,115 @@
+﻿@model IEnumerable<UTCAPPCMS.DAL.Models.Subscription>
+
+@{
+    ViewData["Title"] = "Subscriptions";
+    ViewData["shortdesc"] = "manage Subscriptions information";
+}
+
+<div class="container">
+    <div class="col-xs-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+
+
+
+                <div class="col-md-12 text-right">
+                    <a asp-action="Create">
+                        <button class="btn btn-danger btn-sm btn-labeled" type="button">
+                            <span class="btn-label">
+                                <span class="icon icon-plus icon-lg icon-fw"></span>
+                            </span>
+                            Add New
+                        </button>
+                    </a>
+                </div>
+
+                <a asp-action="Excel">
+                    <button class="btn btn-danger btn-sm btn-labeled" type="button">
+                        <span class="btn-label">
+                            <span class="icon icon-download icon-lg icon-fw"></span>
+                        </span>
+                        Download Excel
+                    </button>
+                </a>
+
+            </div>
+
+            <div class="card-body">
+                <table class="table table-flip-scroll table-bordered table-striped table-hover table-nowrap dataTable display nowrap" cellspacing="0" width="100%" id="demo-datatables-buttons-1">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            <th>Creation Date</th>
+                            <th>IsEnable</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 0;}
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Image)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                            <td>@Html.DisplayFor(modelItem => item.IsEnable)</td>
+                            <td>
+                                <div class="btn-group dropdown">
+                                    <button class="btn btn-danger" type="button">Actions</button>
+                                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" type="button">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a asp-action="Create" asp-route-id="@item.Id" id="btn_EditSubDur">Edit</a></li>
+                                        <li> <a data-toggle="modal" data-target="#@("a"+item.Id)">Delete</a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+    @foreach (var item in Model)
+    {
+        <Text>
+
+        $("#@item.Id").click(function () {
+
+
+                    //console.log('Form is submitting');
+                    $.ajax({
+                        url: "/Subscription/DeleteConfirmed",
+                data: { id: @item.Id },
+                type: "post"
+                        ,
+                        success: window.location.replace("/Subscription/Index")
+            })
+
+
+
+            });
+
+    </Text>
+    }
+    })
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script src="~/JS/DeleteScripts/SubscriptionDelete.js"></script>

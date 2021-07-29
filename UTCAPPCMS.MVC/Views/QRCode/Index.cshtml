@@ -1,0 +1,158 @@
+﻿@model UTCAPPCMS.DAL.ViewModel.ParkingLocationViewModel
+
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iLead</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="~/QRCode/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/QRCode/assets/css/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="header-app">
+        <div class="">
+            <div class="header">
+                <div class="col-md-6 col-sm-6 col-xs-6 img-div" style="padding:20px;">
+                    <br>
+                    <img class="hdr-img" src="@Model.LogoUrl" style="width:70%;">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 header-date-div">
+                    <span class="header-date-div-text header-date-div-text-date">@DateTime.Now.ToString("dd/MM/yyyy")</span>
+                    <br>
+                    <span class="header-date-div-text header-date-div-text-time">@DateTime.Now.ToString("hh:mm tt")</span>
+                    <br>
+                    <div class="parking-name">
+                         
+                            <a href="pricing?SiteId=@Model.SiteId">@Model.Name<img style="margin-left:5px" src="assets/imgs/information.png"></a>
+                        
+                            </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        @if (Model.IsDetails)
+        {
+            <div class="container">
+                <form asp-action="Pay" class="form">
+                    <input asp-for="locationId" type="hidden" />
+                    <input asp-for="transactionId" type="hidden" />
+                     
+                    <div class="row">
+
+                        <div class="col-4">
+                            <p class="car-details">Plate Number</p>
+                        </div>
+                        <div class="col-4">
+                            <p class='value text-center'>@Model.PlatePrefix - @Model.PlateNumber</p>
+                        </div>
+
+                        <div class="col-4">
+                            <p class="car-details-arabic">رقم اللوحة</p>
+                        </div>
+                        <hr />
+
+                        <div class="col-4">
+                            <p class="car-details">Time In</p>
+                        </div>
+                        <div class="col-4">
+                            <p class='value text-center'>@Model.TimeIn</p>
+                        </div>
+
+                        <div class="col-4">
+                            <p class="car-details-arabic">وقت الدخول</p>
+                        </div>
+                        <hr />
+
+                        <div class="col-4">
+                            <p class="car-details">Duration </p>
+                        </div>
+                        <div class="col-4">
+                            <p class='value text-center'>@Model.calculate.Duration Hour - ساعة</p>
+                        </div>
+
+                        <div class="col-4">
+                            <p class="car-details-arabic">المدة</p>
+                        </div>
+                        <hr />
+
+                        <div class="col-4">
+                            <p class="total">Total</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="total text-center">@String.Format("{0:n0}", Math.Round(decimal.Parse(Model.calculate.Price), 1)) Fils - فلس</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="total-arabic">المجموع</p>
+                        </div>
+
+                    </div>
+                    <a href='successful.html'>
+                        <button type="submit" onclick="submitForm()" class="btn btn-primary btn-sm btn-block park-submit-btn">PAY NOW - <span>ادفع الان</span></button>
+                    </a>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="container form-div">
+
+                <form asp-action="Confirm" class="form">
+
+                    <input asp-for="SiteId" type="hidden" />
+                    <input asp-for="LogoUrl" type="hidden" />
+                    <input asp-for="Name" type="hidden" />
+
+                    <div class="form-row parking-form">
+                        <div class="plate-number-hdr">
+                            <h4>Enter Plate Number to Pay</h4>
+                            <h4 class="arabic">ادخل رقم اللوحه للدفع</h4>
+                        </div>
+                        <div class="form-group parking-form-div">
+                            <div class="input-group">
+                                <div style="font-size: 12px ; width: 30%; padding-left: 5px;" class="country">
+                                    <b>دولة الكويت <br>Kuwait</b>
+                                </div>
+                                <br>
+                                <input asp-for="PlatePrefix" maxlength="2" type="text" style="width: 17%;font-size: 25px; font-weight: bolder; color: black; padding: 0 5px; text-align: right;" class="form-control" placeholder="xx" autofocus>
+                                <span style="font-size: 25px; font-weight: bolder"><b>-</b></span>
+                                <input asp-for="PlateNumber" maxlength="5" type="text" style="width: 40%; font-size: 25px; font-weight: bolder; color: black ; padding:0 5px;" class="form-control" placeholder="xxxxx">
+                            </div>
+                        </div>
+                        <div class="background-car">
+                            <img src="./assets/imgs/car.png">
+                        </div>
+                    </div>
+                    <a href="details.html">
+                        <button type="submit" onclick="submitForm()" class="btn btn-primary btn-sm btn-block park-submit-btn">CONFIRM - <span>تأكيد</span> </button>
+                    </a>
+                </form>
+
+                @if (Model.NoTrans)
+                {
+                    <div class="leaving" style="text-align: center">
+                        <h4>
+                            No active transaction for the above plate number
+                        </h4>
+                        <h4 class="leave-arabic">
+                            لا يوجد عملية فعالة لرقم اللوحة المدخل أعلاه
+                        </h4>
+                    </div>
+                }
+
+            </div>
+        }
+    </section>
+    <script src="~/QRCode/assets/js/jquery.js"></script>
+    <script src="~/QRCode/assets/js/bootstrap.min.js"></script>
+    <script src="~/QRCode/assets/js/script.js"></script>
+</body>
+</html>
